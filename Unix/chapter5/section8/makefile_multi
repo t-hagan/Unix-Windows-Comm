@@ -1,0 +1,9 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I$(ROOT_DIR)/chapter2/section4 -I$(ROOT_DIR)/chapter2/section3 -I../section1 -I../section3 -I../section4 -I../section5 -I../section6 -I../section7 -I.
+
+all: TCPstockMultiServer
+
+TCPstockMultiServer.o: TCPstockMultiServer.C 
+	CC $(INC_DIR) -DUNIX -c TCPstockMultiServer.C -g -o TCPstockMultiServer.o
+
+TCPstockMultiServer: TCPstockMultiServer.o
+	CC -o TCPstockMultiServer ../section3/XPCGetProtocol.o ../section4/XPCGetHostInfo.o ../section5/XPCGetService.o ../section6/XPCSocket.o $(ROOT_DIR)/chapter2/section3/XPCSemaphore.o $(ROOT_DIR)/chapter2/section4/XPCPthread.o ../section7/XPCTcpSocket.o TCPstockMultiServer.o -lpthread -lposix4 -lsocket -lnsl -Bdynamic -lc

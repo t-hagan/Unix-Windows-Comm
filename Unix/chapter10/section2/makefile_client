@@ -1,0 +1,12 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I$(ROOT_DIR)/chapter2/section3 -I.
+
+all: SharedMemClient
+
+XPCSharedMem.o: XPCSharedMem.C
+	CC $(INC_DIR) -c XPCSharedMem.C -g -o XPCSharedMem.o
+
+SharedMemClient.o: SharedMemClient.C 
+	CC $(INC_DIR) -c SharedMemClient.C -g -o SharedMemClient.o
+
+SharedMemClient: SharedMemClient.o XPCSharedMem.o
+	CC -o SharedMemClient $(ROOT_DIR)/chapter2/section3/XPCSemaphore.o XPCSharedMem.o SharedMemClient.o -lposix4

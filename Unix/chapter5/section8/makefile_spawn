@@ -1,0 +1,9 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I$(ROOT_DIR)/chapter2/section5 -I$(ROOT_DIR)/chapter2/section2 -I../section1 -I../section3 -I../section4 -I../section5 -I../section6 -I../section7
+
+all: TCPstockSpawnServer
+
+TCPstockSpawnServer.o: TCPstockSpawnServer.C 
+	CC $(INC_DIR) -DUNIX -c TCPstockSpawnServer.C -g -o TCPstockSpawnServer.o
+
+TCPstockSpawnServer: TCPstockSpawnServer.o
+	CC -o TCPstockSpawnServer ../section3/XPCGetProtocol.o ../section4/XPCGetHostInfo.o ../section5/XPCGetService.o ../section6/XPCSocket.o $(ROOT_DIR)/chapter2/section2/XPCSignal.o $(ROOT_DIR)/chapter2/section5/XPCWaitPid.o ../section7/XPCTcpSocket.o TCPstockSpawnServer.o -lsocket -lnsl

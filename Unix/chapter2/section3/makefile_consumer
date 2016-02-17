@@ -1,0 +1,12 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I$(ROOT_DIR)/chapter2/section1 -I.
+
+all: Consumer
+
+XPCSemaphore.o: XPCSemaphore.C
+	CC $(INC_DIR) -c XPCSemaphore.C -g -o XPCSemaphore.o
+
+Consumer.o: Consumer.C 
+	CC $(INC_DIR) -c Consumer.C -g -o Consumer.o
+
+Consumer: XPCSemaphore.o Consumer.o
+	CC -o Consumer XPCSemaphore.o ../section1/XPCFileStat.o Consumer.o -lposix4

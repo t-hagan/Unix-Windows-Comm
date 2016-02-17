@@ -1,0 +1,18 @@
+INC_DIR = -I.
+
+all: LoanFinderVarServer
+
+loan_system3_xdr.o: loan_system3_xdr.c
+	gcc -c loan_system3_xdr.c -o loan_system3_xdr.o
+
+loan_system3_svc.o: loan_system3_svc.c
+	gcc -c loan_system3_svc.c -o loan_system3_svc.o
+
+XPCLoanCalc.o: XPCLoanCalc.C
+	CC -I. -c XPCLoanCalc.C -o XPCLoanCalc.o
+
+LoanFinderVarServer.o: LoanFinderVarServer.C
+	CC -I. -c LoanFinderVarServer.C -o LoanFinderVarServer.o
+
+LoanFinderVarServer: loan_system3_xdr.o loan_system3_svc.o XPCLoanCalc.o LoanFinderVarServer.o
+	CC -o LoanFinderVarServer loan_system3_xdr.o loan_system3_svc.o XPCLoanCalc.o LoanFinderVarServer.o -lnsl

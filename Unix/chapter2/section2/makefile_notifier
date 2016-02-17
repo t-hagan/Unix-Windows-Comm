@@ -1,0 +1,13 @@
+ROOT_DIR = /home/nadelsm/book2
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I.
+
+all: Notifier
+
+XPCSignal.o: XPCSignal.C
+	CC $(INC_DIR) -c XPCSignal.C -g -o XPCSignal.o
+
+Notifier.o: Notifier.C 
+	CC $(INC_DIR) -c Notifier.C -g -o Notifier.o
+
+Notifier: XPCSignal.o Notifier.o
+	CC -o Notifier XPCSignal.o Notifier.o

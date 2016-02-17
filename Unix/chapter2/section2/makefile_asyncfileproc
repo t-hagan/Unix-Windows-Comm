@@ -1,0 +1,12 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I$(ROOT_DIR)/chapter2/section1 -I.
+
+all: AsyncFileProc
+
+XPCSignal.o: XPCSignal.C
+	CC $(INC_DIR) -c XPCSignal.C -g -o XPCSignal.o
+
+AsyncFileProc.o: AsyncFileProc.C 
+	CC $(INC_DIR) -c AsyncFileProc.C -g -o AsyncFileProc.o
+
+AsyncFileProc: XPCSignal.o AsyncFileProc.o
+	CC -o AsyncFileProc XPCSignal.o ../../chapter2/section1/XPCFileStat.o AsyncFileProc.o

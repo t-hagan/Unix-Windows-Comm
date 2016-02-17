@@ -1,0 +1,12 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I$(ROOT_DIR)/chapter2/section1 -I$(ROOT_DIR)/chapter2/section2 -I$(ROOT_DIR)/chapter2/section3 -I$(ROOT_DIR)/chapter2/section4 -I.
+
+all: DaemonExample
+
+XPCDaemon.o: XPCDaemon.C
+	CC $(INC_DIR) -c XPCDaemon.C -g -o XPCDaemon.o
+
+DaemonExample.o: DaemonExample.C
+	CC $(INC_DIR) -c DaemonExample.C -g -o DaemonExample.o
+
+DaemonExample: XPCWaitPid.o XPCDaemon.o DaemonExample.o
+	CC -o DaemonExample ../section2/XPCSignal.o ../section3/XPCSemaphore.o ../section4/XPCPthreadAttr.o ../section4/XPCPthread.o XPCWaitPid.o XPCDaemon.o DaemonExample.o -lpthread -lposix4

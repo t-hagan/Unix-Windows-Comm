@@ -1,0 +1,9 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I../section1 -I../section3 -I../section4 -I../section5 -I../section6 -I../section7 -I.
+
+all: TCPPrice
+
+TCPPrice.o: TCPPrice.C 
+	CC $(INC_DIR) -DUNIX -c TCPPrice.C -g -o TCPPrice.o
+
+TCPPrice: TCPPrice.o
+	CC -o TCPPrice ../section3/XPCGetProtocol.o ../section4/XPCGetHostInfo.o ../section5/XPCGetService.o ../section6/XPCSocket.o ../section7/XPCTcpSocket.o TCPPrice.o -lsocket -lnsl

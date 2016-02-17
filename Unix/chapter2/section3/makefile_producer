@@ -1,0 +1,12 @@
+INC_DIR = -I$(ROOT_DIR)/chapter1 -I.
+
+all: Producer
+
+XPCSemaphore.o: XPCSemaphore.C
+	CC $(INC_DIR) -c XPCSemaphore.C -g -o XPCSemaphore.o
+
+Producer.o: Producer.C 
+	CC $(INC_DIR) -c Producer.C -g -o Producer.o
+
+Producer: XPCSemaphore.o Producer.o
+	CC -o Producer XPCSemaphore.o Producer.o -lposix4
